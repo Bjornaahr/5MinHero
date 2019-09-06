@@ -12,6 +12,7 @@ public class Camera : MonoBehaviour
     float offsetY, offsetX, distance, smoothTime;
 
     private Vector3 velocity = Vector3.zero;
+    Vector3 targetPos;
 
     private void Awake() {
         
@@ -24,7 +25,12 @@ public class Camera : MonoBehaviour
     }
     
     private void FixedUpdate() {
-        Vector3 targetPos = new Vector3(plane.position.x + offsetX, plane.position.y + offsetY, distance);
+        if(plane.position.y > 40f){
+        targetPos = new Vector3(plane.position.x + offsetX, plane.position.y + offsetY, distance);
+        } else {
+            targetPos = new Vector3(plane.position.x + offsetX, 30, distance);
+        }
+
         transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
     }
 }

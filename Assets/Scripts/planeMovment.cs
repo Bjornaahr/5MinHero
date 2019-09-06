@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class planeMovment : MonoBehaviour
 {
@@ -11,7 +13,13 @@ public class planeMovment : MonoBehaviour
 
     Rigidbody2D rigidBod2D;
 
+    [SerializeField]
+    ParticleSystem fireBall, smoke;
+
     bool landed = false;
+
+    [SerializeField]
+    TextMeshProUGUI success;
 
     // Start is called before the first frame update
     void Start()
@@ -43,20 +51,36 @@ public class planeMovment : MonoBehaviour
 
         }
 
+
     }
 
     private void OnCollisionEnter2D(Collision2D coll) {
         if(coll.gameObject.name == "Ground"){
             landed = true;
-            Debug.Log("Explode");
+            Explode();
         }
 
 
 
           if(coll.gameObject.name == "Runway"){
             landed = true;
-            Debug.Log("Success");
+            if(transform.localEulerAngles.z <= 345  &&  transform.localEulerAngles.z >= 5){
+                Explode();
+            } else{
+                success.gameObject.SetActive(true);
+                Debug.Log("Success");
+            }
         }
+    }
+
+    void Explode(){
+
+        Debug.Log("Explode");
+        fireBall.Play();
+        smoke.Play();
+
+        success.text = "You failed saving 162 lives today, but still a hero in some eyes";
+        success.gameObject.SetActive(true);
     }
 
 }
