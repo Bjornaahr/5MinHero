@@ -43,7 +43,7 @@ public class CutSceneManager : MonoBehaviour
         } 
 
         else if(Input.GetButtonDown("Fire1") && index == 2){
-            m_Camera.transform.position = new Vector3(21,0,-1);
+          //  m_Camera.transform.position = new Vector3(21,0,-1);
         }
 
     }

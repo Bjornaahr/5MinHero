@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraPlane : MonoBehaviour
 {
 
     [SerializeField]
@@ -14,8 +14,9 @@ public class Camera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     Vector3 targetPos;
 
-    private void Awake() {
-    
+    private void Awake()
+    {
+
     }
 
     // Start is called before the first frame update
@@ -23,11 +24,15 @@ public class Camera : MonoBehaviour
     {
         plane = GameObject.FindGameObjectWithTag("Plane").transform;
     }
-    
-    private void FixedUpdate() {
-        if(plane.position.y > 40f){
-        targetPos = new Vector3(plane.position.x + offsetX, plane.position.y + offsetY, distance);
-        } else {
+
+    private void FixedUpdate()
+    {
+        if (plane.position.y > 40f)
+        {
+            targetPos = new Vector3(plane.position.x + offsetX, plane.position.y + offsetY, distance);
+        }
+        else
+        {
             targetPos = new Vector3(plane.position.x + offsetX, 30, distance);
         }
 

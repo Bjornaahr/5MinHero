@@ -5154,14 +5154,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a316398a1b1fb47b8894a39f53c04d, type: 3}
+  m_Script: {fileID: 11500000, guid: c5ad7b6de80f99c4b875351b1da2746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plane: {fileID: 0}
-  offsetY: -10.15
-  offsetX: 19.81
+  plane: {fileID: 761690460}
+  offsetY: -6
+  offsetX: 26.95
   distance: -1
-  smoothTime: 0
+  smoothTime: 0.01
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5253,7 +5253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -626, y: 368}
+  m_AnchoredPosition: {x: -598.9, y: 324.7}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662934662
@@ -6126,7 +6126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -626, y: 415}
+  m_AnchoredPosition: {x: -598.9, y: 371.69995}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1472862762
@@ -6283,7 +6283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -575.2, y: 315}
+  m_AnchoredPosition: {x: -548.10004, y: 271.69995}
   m_SizeDelta: {x: 301.7, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1901074084
