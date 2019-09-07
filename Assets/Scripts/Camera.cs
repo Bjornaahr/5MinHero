@@ -15,7 +15,7 @@ public class Camera : MonoBehaviour
     Vector3 targetPos;
 
     private void Awake() {
-        
+    
     }
 
     // Start is called before the first frame update
