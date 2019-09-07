@@ -8,7 +8,12 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
     GameObject[] blinkerIndicators, electricIndicators, hydrolicIndicators, septicIndicators;
 
     [SerializeField]
+    GameObject flapsIndicator;
+
+    [SerializeField]
     float blinkerLeakRate, electricDropRate, hydrolicLeakRate, septicFillRate;
+
+    int flapPos;
 
     bool dumping;
 
@@ -25,25 +30,25 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
 
     }
 
-    public void flaps(int flapPos)
+    public void flaps(int flap)
     {
-        throw new System.NotImplementedException();
 
+        flapPos = flap;
     }
 
     public void landingGear(int landingGearPos)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void pumpingHydrolics()
     {
         if (hydrolicIndicators[0].transform.rotation.z <= 0.513)
         {
-            hydrolicIndicators[0].transform.Rotate(Vector3.forward, 1.5f);
-            hydrolicIndicators[1].transform.Rotate(Vector3.forward, 1.5f);
-            hydrolicIndicators[2].transform.Rotate(Vector3.forward, 1.5f);
-            hydrolicIndicators[3].transform.Rotate(Vector3.forward, 1.5f);
+            hydrolicIndicators[0].transform.Rotate(Vector3.forward, 5.5f);
+            hydrolicIndicators[1].transform.Rotate(Vector3.forward, 5.5f);
+            hydrolicIndicators[2].transform.Rotate(Vector3.forward, 5.5f);
+            hydrolicIndicators[3].transform.Rotate(Vector3.forward, 5.5f);
 
         }
     }
@@ -58,7 +63,14 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
 
     public void turningGenerator()
     {
-        Debug.Log("Turned 360");
+        if (electricIndicators[0].transform.rotation.z <= 0.513)
+        {
+            electricIndicators[0].transform.Rotate(Vector3.forward, 3.5f);
+            electricIndicators[1].transform.Rotate(Vector3.forward, 3.5f);
+            electricIndicators[2].transform.Rotate(Vector3.forward, 3.5f);
+            electricIndicators[3].transform.Rotate(Vector3.forward, 3.5f);
+
+        }
     }
 
     void Start()
@@ -73,9 +85,10 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         VoltageDrop();
         HydrolicLeak();
         SepticFilling();
+        SetFlaps();
 
 
-        if (blinkerIndicators[0].transform.rotation.z <= -0.33f || septicIndicators[0].transform.rotation.z <= -0.33f)
+        if (blinkerIndicators[0].transform.rotation.z <= -0.40f || septicIndicators[0].transform.rotation.z <= -0.40f)
         {
             Debug.Log("Failed");
         }
@@ -137,6 +150,54 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         septicIndicators[3].transform.Rotate(Vector3.forward, septicFillRate);
 
     }
+
+
+    void SetFlaps()
+    {
+        if (flapPos == 0)
+        {
+
+
+          /*  Vector3 pos = Camera.main.WorldToScreenPoint(new Vector3(flapsIndicator.transform.position.x, flapsIndicator.transform.position.y, 0)); //Makes pos the position of the handle of the gunblade in screen cooridinates
+            Vector3 dir = new Vector3(379.9f, 451.4f, 0) - pos; //returns the position of the mouse relative to the gunblade handle
+            float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360; //Dir into angles
+
+           Quaternion newDir = Quaternion.Euler(0, 180, -angle + 90);*/
+
+           // flapsIndicator.transform.rotation =  Quaternion.RotateTowards(flapsIndicator.transform.rotation, newDir, 10.0f);
+            flapsIndicator.transform.localEulerAngles = new Vector3(0,0, 68.384f);
+
+        }
+        else if (flapPos == 10)
+        {
+            // Debug.Log(flapsIndicator.transform.rotation.z + " 10");
+            // 0.311
+            flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, 35.35f);
+
+        }
+        else if (flapPos == 20)
+        {
+            // Debug.Log(flapsIndicator.transform.rotation.z + " 20");
+            // 0.342
+            flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, -41.266f);
+
+        }
+        else if (flapPos == 30)
+        {
+            // Debug.Log(flapsIndicator.transform.rotation.z + " 30");
+            // 0.834
+            flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, -113.735f);
+
+        }
+        else if (flapPos == 35)
+        {
+            // Debug.Log(flapsIndicator.transform.rotation.z + " 35");
+            //  0.016
+            flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, 0.449f);
+
+        }
+    }
+
 
 
 }

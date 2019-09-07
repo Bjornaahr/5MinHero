@@ -10,7 +10,8 @@ public class WiperFluid : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     RectTransform rectTransform;
-    GameObject indicatorHandler;
+    GameObject indicatorHandler, cutSceneManager;
+    LayerMask mask;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class WiperFluid : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         startPos = rectTransform.position;
         indicatorHandler = GameObject.FindGameObjectWithTag("IndicatorHandler");
+        cutSceneManager = GameObject.FindGameObjectWithTag("CutsceneManager");
+        mask = LayerMask.GetMask("BlinkerFluid");
 
     }
 
@@ -26,7 +29,7 @@ public class WiperFluid : MonoBehaviour
     void Update()
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, mask);
         if (hit)
         {
             if (hit.collider.name == "BlinkerFluid")
@@ -55,6 +58,8 @@ public class WiperFluid : MonoBehaviour
         if(coll.name == "BlinkerFluidHolder")
         {
             ExecuteEvents.Execute<ICustomMessage>(indicatorHandler, null, (x,y)=>x.fillingBlinkerFluid());
+            ExecuteEvents.Execute<ICustomMessage>(cutSceneManager, null, (x, y) => x.fillingBlinkerFluid());
+
         }
     }
 

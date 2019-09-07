@@ -10,7 +10,7 @@ public class HydrolicPump : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     RectTransform rectTransform;
-    GameObject indicatorHandler;
+    GameObject indicatorHandler, cutSceneManager;
 
     [SerializeField]
     float handleOffset;
@@ -25,6 +25,8 @@ public class HydrolicPump : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         startPos = rectTransform.position;
         indicatorHandler = GameObject.FindGameObjectWithTag("IndicatorHandler");
+        cutSceneManager = GameObject.FindGameObjectWithTag("CutsceneManager");
+
 
     }
 
@@ -46,7 +48,6 @@ public class HydrolicPump : MonoBehaviour
         {
             Vector3 pos = Input.mousePosition;
 
-          // Debug.Log(pos);
 
             if (camera.ScreenToWorldPoint(pos).y <= 179.4 && camera.ScreenToWorldPoint(pos).y >= 110) {
                 rectTransform.position = new Vector3(rectTransform.position.x, camera.ScreenToWorldPoint(pos).y - handleOffset, 79);
@@ -64,10 +65,7 @@ public class HydrolicPump : MonoBehaviour
             canHold = false;
         }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(rectTransform.position.y);
-        }
+    
 
 
 
@@ -85,6 +83,8 @@ public class HydrolicPump : MonoBehaviour
         {
             Debug.Log("Pump");
             ExecuteEvents.Execute<ICustomMessage>(indicatorHandler, null, (x, y) => x.pumpingHydrolics());
+            ExecuteEvents.Execute<ICustomMessage>(cutSceneManager, null, (x, y) => x.pumpingHydrolics());
+
             topPump = false;
         }
 

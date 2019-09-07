@@ -11,7 +11,7 @@ public class Generator : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     RectTransform rectTransform;
-    GameObject indicatorHandler;
+    GameObject indicatorHandler, cutSceneManager;
     bool canHold;
     float angle;
     bool fullRotationNext;
@@ -23,6 +23,8 @@ public class Generator : MonoBehaviour
         camera = Camera.main;
         rectTransform = GetComponent<RectTransform>();
         indicatorHandler = GameObject.FindGameObjectWithTag("IndicatorHandler");
+        cutSceneManager = GameObject.FindGameObjectWithTag("CutsceneManager");
+
 
     }
 
@@ -64,14 +66,16 @@ public class Generator : MonoBehaviour
     {
        // Debug.Log(transform.rotation.x);
 
-        if(transform.rotation.x <= -0.99 && transform.rotation.x >= 0.98)
+        if(transform.rotation.x <= -0.70 && transform.rotation.x >= -0.77)
         {
             fullRotationNext = true;
         }
 
-        if (transform.rotation.x <= 0.01 && transform.rotation.x >= -0.07 && fullRotationNext)
+        if (transform.rotation.x <= 0.77 && transform.rotation.x >= 0.69 && fullRotationNext)
         {
             ExecuteEvents.Execute<ICustomMessage>(indicatorHandler, null, (x, y) => x.turningGenerator());
+            ExecuteEvents.Execute<ICustomMessage>(cutSceneManager, null, (x, y) => x.turningGenerator());
+
             fullRotationNext = false;
         }
     }
