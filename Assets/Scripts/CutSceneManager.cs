@@ -18,7 +18,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
     TextMeshProUGUI flightAttendantText;
 
     [SerializeField]
-    TextMeshProUGUI alltiudeTxt, headingTxt, navTxt;
+    TextMeshProUGUI alltiudeTxt, headingTxt, navTxt, countDownText;
 
     int index, flapsAngle;
 
@@ -29,7 +29,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     public void fillingBlinkerFluid()
     {
-        if (!blinkerFluid)
+        if (!blinkerFluid && septicPressed)
         {
             FilledBlinker();
         }
@@ -47,7 +47,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     public void pumpingHydrolics()
     {
-        if (!hydrolic)
+        if (!hydrolic && blinkerFluid && septicPressed)
         {
             HydrolicPumped();
         }
@@ -69,7 +69,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     public void turningGenerator()
     {
-        if (!voltage) {
+        if (!voltage && hydrolic && septicPressed && blinkerFluid) {
             GeneratorTurned();
         }
     }
@@ -134,12 +134,14 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     void GeneratorTurned()
     {
-        flightAttendantText.text = "Okay, right now I'm going to give you the instructions to line up the plane" +
+        flightAttendantText.text = "I see you only got 5 min left of fuel, right now I'm going to give you the instructions to line up the plane" +
             "with the runway. Turn right heading 3";
+        StartCoroutine(StartCountDown());
         voltage = true;
     }
 
 
+    //ATC talking to player and player executing ATC commands
     void GetPlaneAround()
     {
 
@@ -185,6 +187,22 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
         {
             flightAttendantText.text = "Great, now just dump the septic tank one more time and we can land this plane";
             index++;
+        }
+    }
+
+
+    float currentCountDownValue;
+
+    public IEnumerator StartCountDown(float countdownValue = 300)
+    {
+        currentCountDownValue = countdownValue;
+
+        while (currentCountDownValue > 0)
+        {
+            Debug.Log("Countdown: " + currentCountDownValue);
+            countDownText.text = "Time Left: " + currentCountDownValue.ToString();
+            yield return new WaitForSeconds(1.0f);
+            currentCountDownValue--;
         }
     }
 
