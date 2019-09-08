@@ -35,6 +35,7 @@ public class LandingGear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Raycast hitting landinggear lever
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit)
@@ -46,11 +47,10 @@ public class LandingGear : MonoBehaviour
         }
 
 
+        //Moving the handle within boundaries
         if (Input.GetMouseButton(0) && canHold)
         {
             Vector3 pos = Input.mousePosition;
-
-            // Debug.Log(pos);
 
             if (canMoveY)
             {

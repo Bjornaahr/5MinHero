@@ -23,12 +23,16 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Shows diffrent UI elements to indicate where the plane is
+
+
         heightTxt.text = "Alltitude: " + (transform.position.y * 10).ToString("F0") + "feet";
 
+        //Calculate speed
         Vector3 velocity =  (transform.position - prevPos) / Time.fixedDeltaTime;
 
         speedTxt.text = "Speed: " + (velocity.magnitude * 10).ToString("F2") + "knots";
-
+        
         prevPos = transform.position;
 
         distanceToAirfield.text = "Distance to runway: " + Mathf.Abs((transform.position.x - runway.position.x)).ToString("F0") + " km";

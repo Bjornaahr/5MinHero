@@ -33,6 +33,7 @@ public class HydrolicPump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ray hitting pumphandle
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit)
@@ -43,7 +44,7 @@ public class HydrolicPump : MonoBehaviour
             }
         }
 
-
+        //Moves handle with boundaries set by mouse position
         if (Input.GetMouseButton(0) && canHold)
         {
             Vector3 pos = Input.mousePosition;
@@ -72,6 +73,7 @@ public class HydrolicPump : MonoBehaviour
     }
 
 
+    //Check if pump is top and then bottom, and send event
     void Pump()
     {
         if (rectTransform.position.y >= 135)

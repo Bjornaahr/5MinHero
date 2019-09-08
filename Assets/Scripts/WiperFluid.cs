@@ -28,6 +28,7 @@ public class WiperFluid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ray hitting blinkerfluid cannister and moving it freeley around, but will loose it if mouse moves to fast
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, mask);
         if (hit)
@@ -53,6 +54,7 @@ public class WiperFluid : MonoBehaviour
 
     }
 
+    //Checks if blinker fluid cannister is over the blinker fluid puring area, and sends events to scripts needing it
     void OnTriggerStay2D(Collider2D coll)
     {
         if(coll.name == "BlinkerFluidHolder")

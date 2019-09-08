@@ -31,16 +31,19 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ray to check if we hit the generator handle
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit)
         {
             if (hit.collider.name == "GeneratorHandle")
             {
+                //Uses canHold to check if we click the generator handle and move it around
                 canHold = true;
             }
         }
 
+        //Rotates the generator handle towards mouse postion
         if (Input.GetMouseButton(0) && canHold)
         {
             
@@ -55,6 +58,8 @@ public class Generator : MonoBehaviour
            
 
         }
+
+        //Realeses the generator handle
         else if (Input.GetMouseButtonUp(0) && canHold)
         {
             canHold = false;
@@ -66,11 +71,13 @@ public class Generator : MonoBehaviour
     {
        // Debug.Log(transform.rotation.x);
 
+        //Checks if we have done half a rotation
         if(transform.rotation.x <= -0.70 && transform.rotation.x >= -0.77)
         {
             fullRotationNext = true;
         }
 
+        //Checks for a full rotation after a half rotation
         if (transform.rotation.x <= 0.77 && transform.rotation.x >= 0.69 && fullRotationNext)
         {
             ExecuteEvents.Execute<ICustomMessage>(indicatorHandler, null, (x, y) => x.turningGenerator());

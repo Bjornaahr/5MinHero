@@ -32,6 +32,7 @@ public class Flaps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ray hitting flaps
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit)
@@ -42,7 +43,7 @@ public class Flaps : MonoBehaviour
             }
         }
 
-
+        //Move lever based on mouse postion
         if (Input.GetMouseButton(0) && canHold)
         {
             Vector3 pos = Input.mousePosition;
@@ -62,7 +63,7 @@ public class Flaps : MonoBehaviour
 
   
 
-
+        //Sends event with flap postion based to levers position
         if(rectTransform.position.y <= 240)
         {
             ExecuteEvents.Execute<ICustomMessage>(indicatorHandler, null, (x, y) => x.flaps(0));

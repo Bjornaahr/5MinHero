@@ -26,6 +26,8 @@ public class ControllPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ray hitting diffrent knobs to be truned
+        //If scroll wheel is used we increment the diffrent values
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if (hit)
@@ -52,7 +54,7 @@ public class ControllPanel : MonoBehaviour
                 alt += (int) Input.mouseScrollDelta.y * 100;
             }
         }
-
+        //Set the text
         navTxt.text = NAV.ToString("F2");
         alltiudeTxt.text = alt.ToString();
         headingTxt.text = heading.ToString();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class IndicatorHandler : MonoBehaviour, ICustomMessage
 {
@@ -17,6 +18,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
 
     bool dumping;
 
+    //Fills blinker fluid
     public void fillingBlinkerFluid()
     {
         if (blinkerIndicators[0].transform.rotation.z <= 0.513)
@@ -30,6 +32,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
 
     }
 
+    //Set flap position according to flap lever position
     public void flaps(int flap)
     {
 
@@ -41,6 +44,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         
     }
 
+    //Increments hyrdolic indicators as player is pumping
     public void pumpingHydrolics()
     {
         if (hydrolicIndicators[0].transform.rotation.z <= 0.513)
@@ -53,6 +57,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         }
     }
 
+    //Starts dumping septic tank
     public void sepitcDump()
     {
         if (septicIndicators[0].transform.rotation.z <= 0.513)
@@ -61,6 +66,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         }
     }
 
+    //Increments the electric indicator when generator is turned
     public void turningGenerator()
     {
         if (electricIndicators[0].transform.rotation.z <= 0.513)
@@ -88,17 +94,21 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
         SetFlaps();
 
 
+        //Checks if blinker and septic is empty/full
         if (blinkerIndicators[0].transform.rotation.z <= -0.40f || septicIndicators[0].transform.rotation.z <= -0.40f)
         {
+            Failed();
             Debug.Log("Failed");
         }
 
+        //Check if we got no electric charge or hydrolic pressure
         if (electricIndicators[0].transform.rotation.z <= -0.33f || hydrolicIndicators[0].transform.rotation.z <= -0.33f)
         {
+            Failed();
             Debug.Log("Failed");
         }
 
-
+        //Dumps the septic tank
         if (dumping)
         {
             septicIndicators[0].transform.Rotate(Vector3.forward, 0.4f);
@@ -116,7 +126,7 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
 
     }
 
-
+    //Rotates the blinker indicators towards empty
     void LeakBlinker()
     {
         blinkerIndicators[0].transform.Rotate(Vector3.forward, blinkerLeakRate);
@@ -152,52 +162,44 @@ public class IndicatorHandler : MonoBehaviour, ICustomMessage
     }
 
 
+    //Sets the flap indicator according to flap degrees
     void SetFlaps()
     {
         if (flapPos == 0)
         {
-
-
-          /*  Vector3 pos = Camera.main.WorldToScreenPoint(new Vector3(flapsIndicator.transform.position.x, flapsIndicator.transform.position.y, 0)); //Makes pos the position of the handle of the gunblade in screen cooridinates
-            Vector3 dir = new Vector3(379.9f, 451.4f, 0) - pos; //returns the position of the mouse relative to the gunblade handle
-            float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) % 360; //Dir into angles
-
-           Quaternion newDir = Quaternion.Euler(0, 180, -angle + 90);*/
-
-           // flapsIndicator.transform.rotation =  Quaternion.RotateTowards(flapsIndicator.transform.rotation, newDir, 10.0f);
             flapsIndicator.transform.localEulerAngles = new Vector3(0,0, 68.384f);
 
         }
         else if (flapPos == 10)
         {
-            // Debug.Log(flapsIndicator.transform.rotation.z + " 10");
-            // 0.311
+
             flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, 35.35f);
 
         }
         else if (flapPos == 20)
         {
-            // Debug.Log(flapsIndicator.transform.rotation.z + " 20");
-            // 0.342
+       
             flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, -41.266f);
 
         }
         else if (flapPos == 30)
         {
-            // Debug.Log(flapsIndicator.transform.rotation.z + " 30");
-            // 0.834
+
             flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, -113.735f);
 
         }
         else if (flapPos == 35)
         {
-            // Debug.Log(flapsIndicator.transform.rotation.z + " 35");
-            //  0.016
+   
             flapsIndicator.transform.localEulerAngles = new Vector3(0, 0, 0.449f);
 
         }
     }
 
-
+    void Failed()
+    {
+        PlayerPrefs.SetInt("Failed", 1);
+        SceneManager.LoadScene(1);
+    }
 
 }

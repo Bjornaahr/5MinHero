@@ -27,6 +27,18 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     bool septicPressed, blinkerFluid, hydrolic, voltage, landingGearDown;
 
+    /*
+     * 
+     * 
+     * 
+     * 
+     * INTERFACE FOR EVENT SYSTEM
+     * 
+     * 
+     * 
+     * 
+     */
+
     public void fillingBlinkerFluid()
     {
         if (!blinkerFluid && septicPressed)
@@ -62,6 +74,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
         if(index == 9)
         {
+            PlayerPrefs.SetInt("Failed", 0);
             SceneManager.LoadScene(1);
         }
 
@@ -75,6 +88,15 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
     }
 
 
+    /*
+     * 
+     * 
+     * EVENT SYSTEM CALLS OVER
+     * 
+     * 
+     */
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +106,8 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
     // Update is called once per frame
     void Update()
     {
+
+        //Goes through the first cut scene and starts tutorial
         if(Input.GetButtonDown("Fire1") && index == 0){
             flightAttendantText.text = "All of our pilots are incapacitated, and we need one of you to pilot the plane";
             spriteRenderer.sprite = after;
@@ -104,6 +128,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
         }
 
+        //Check if tutorial is over
         if (voltage)
         {
             GetPlaneAround();
@@ -111,6 +136,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
 
     }
 
+    //Called when septic tank is pressed and continus the tutorial
     void SepticPressed()
     {
         flightAttendantText.text = "ATC: Great, I see you're leaking blinker fluid." +
@@ -118,6 +144,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
         septicPressed = true;
     }
 
+    //Called when blinkerfluid is filling and continus the tutorial
     void FilledBlinker()
     {
         flightAttendantText.text = "ATC: Fantastic remember that you need to do this often" +
@@ -125,6 +152,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
         blinkerFluid = true;
     }
 
+    //Called when hydrolics are pumped and continus the tutorial
     void HydrolicPumped()
     {
         flightAttendantText.text = "Amazing, soon finished with the basics of keeping this plane in the air" +
@@ -132,6 +160,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
         hydrolic = true;
     }
 
+    //Called when generator is turned and starts the task of getting the plane on course with runway
     void GeneratorTurned()
     {
         flightAttendantText.text = "I see you only got 5 min left of fuel, right now I'm going to give you the instructions to line up the plane" +
@@ -191,6 +220,7 @@ public class CutSceneManager : MonoBehaviour, ICustomMessage
     }
 
 
+    //Five minute countdown
     float currentCountDownValue;
 
     public IEnumerator StartCountDown(float countdownValue = 300)
