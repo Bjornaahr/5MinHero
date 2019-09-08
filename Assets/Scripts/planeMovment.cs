@@ -93,6 +93,10 @@ public class planeMovment : MonoBehaviour
                 Debug.Log("Success");
             }
         }
+
+        Debug.Log("Success");
+
+
     }
 
     //Plays  particle effects for explosion and set the text to failed
